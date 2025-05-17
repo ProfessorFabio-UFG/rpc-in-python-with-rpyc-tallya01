@@ -12,7 +12,7 @@ class DBList(rpyc.Service):
   def exposed_value(self):
     return self.value
 
-  def exposed_get_days_until_bday(date):
+  def exposed_get_days_until_bday(self, date):
     splitted_date = date.split('/')
     day = int(splitted_date[0])
     month = int(splitted_date[1])
@@ -28,13 +28,13 @@ class DBList(rpyc.Service):
 
     return (bday_this_year - today).days
 
-  def exposed_is_leap(year):
+  def exposed_is_leap(self, year):
     year = int(year)
     if year < 1:
       raise ValueError('O ano não pode ser negativo')
     return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
 
-  def exposed_add_days_to_date(date_str, days):
+  def exposed_add_days_to_date(self, date_str, days):
     date_obj = datetime.strptime(date_str, "%d/%m/%Y")
     new_date = date_obj + timedelta(days=days)
     return new_date.strftime("%d/%m/%Y")  
